@@ -34,12 +34,16 @@ body {
     padding: 0;
     text-align: right;
     /* TODO: Funcionar com hamburguer menu */
-    display: none;
+    /* display: none; */
+}
+
+.header-menu li {
+    padding: .25em 0;
 }
 
 .header-menu a {
     display: block;
-    padding: 2em 0;
+    padding: 1.75em 0;
 }
 
 a {
@@ -228,13 +232,17 @@ img {
         font-size: 2.875rem;
     }
     
-    .header {
-        display: flex;
-        justify-content: space-between;
+    .header{
         align-items: center;
     }
+
+    .menu-btn, .menu-icon {
+        display: none;
+    }
+    
     .header-menu {
-        display: block;
+        /* display: block; */
+        margin: 0;
     }
     .header-menu li {
         display: inline-block;
@@ -320,4 +328,100 @@ img {
     .row > .lg-8-12 {
         grid-column: 8 / 13;
     }
+}
+
+/* hamburguer menu */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header-menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100px;
+    max-height: 0;
+    overflow: hidden;
+    background-color: white;
+
+    transition: max-height .3s;
+    margin: 0;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.menu-btn:checked ~ .header-menu {
+    max-height: 100vh;
+}
+
+.menu-btn:checked+.menu-icon .nav-icon {
+    background-color: transparent;
+}
+
+.header-menu:focus-within { /* Mostra os itens do hamburguer menu em leitura de tela */
+    max-height: 100vh;
+}
+
+@media screen and (min-width: 46.25em){
+    .header-menu {
+        position: static;
+        max-height: initial;
+        background-color: initial;
+    }
+}
+
+.header nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.menu-icon {
+    position: relative;
+    cursor: pointer;
+    height: 24px;
+    /* user-select: none; */
+}
+
+.nav-icon {
+    background-color: #333;
+    display: inline-block;
+    height: 2px;
+    width: 24px;
+    position: relative;
+}
+
+.nav-icon::after, .nav-icon::before {
+    content: "";
+    background-color: #333;
+    display: inline-block;
+    height: 2px;
+    width: 24px;
+    position: absolute;
+    transition: transform .2s;
+}
+
+.nav-icon::after {
+    transform: translateY(8px);
+    transition: transform .3s;
+}
+
+.nav-icon::before {
+    transform: translateY(-8px);
+    transition: transform .3s;
+}
+
+.menu-btn:checked + .menu-icon .nav-icon::before {
+    transform: rotate(-45deg);
+}
+
+.menu-btn:checked + .menu-icon .nav-icon::after {
+    transform: rotate(45deg);
+}
+
+.menu-btn:focus-visible + .menu-icon {
+    outline: 2px solid black;
+    outline-offset: 3px;
 }
